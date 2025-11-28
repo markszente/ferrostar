@@ -28,7 +28,7 @@ use super::SerializableStepAdvanceCondition;
 /// You can use this to implement custom behaviors in external code.
 #[derive(Debug, Copy, Clone)]
 #[cfg_attr(feature = "uniffi", derive(uniffi::Object))]
-pub struct ManualStepCondition;
+pub struct ManualStepCondition {}
 
 impl StepAdvanceCondition for ManualStepCondition {
     #[allow(unused_variables)]
