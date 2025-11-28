@@ -143,7 +143,7 @@ pub enum SerializableStepAdvanceCondition {
 impl From<SerializableStepAdvanceCondition> for Arc<dyn StepAdvanceCondition> {
     fn from(condition: SerializableStepAdvanceCondition) -> Arc<dyn StepAdvanceCondition> {
         match condition {
-            SerializableStepAdvanceCondition::Manual => Arc::new(ManualStepCondition),
+            SerializableStepAdvanceCondition::Manual => Arc::new(ManualStepCondition {}),
             SerializableStepAdvanceCondition::DistanceToEndOfStep {
                 distance,
                 minimum_horizontal_accuracy,
@@ -204,7 +204,7 @@ impl From<SerializableStepAdvanceCondition> for Arc<dyn StepAdvanceCondition> {
 #[cfg(feature = "uniffi")]
 #[uniffi::export]
 pub fn step_advance_manual() -> Arc<dyn StepAdvanceCondition> {
-    Arc::new(ManualStepCondition)
+    Arc::new(ManualStepCondition {})
 }
 
 /// Convenience function for creating a [`DistanceToEndOfStepCondition`].

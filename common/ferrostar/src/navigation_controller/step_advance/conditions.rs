@@ -33,11 +33,11 @@ pub struct ManualStepCondition {}
 impl StepAdvanceCondition for ManualStepCondition {
     #[allow(unused_variables)]
     fn should_advance_step(&self, trip_state: TripState) -> StepAdvanceResult {
-        StepAdvanceResult::continue_with_state(Arc::new(ManualStepCondition))
+        StepAdvanceResult::continue_with_state(Arc::new(ManualStepCondition {}))
     }
 
     fn new_instance(&self) -> Arc<dyn StepAdvanceCondition> {
-        Arc::new(ManualStepCondition)
+        Arc::new(ManualStepCondition {})
     }
 }
 
