@@ -9,6 +9,7 @@
 
 #[cfg(feature = "alloc")]
 use alloc::{string::String, vec::Vec};
+use flutter_rust_bridge::frb;
 use geo::{Coord, LineString, Point, Rect};
 #[cfg(feature = "uniffi")]
 use polyline::encode_coordinates;
@@ -409,6 +410,8 @@ impl RouteStep {
 #[cfg_attr(feature = "wasm-bindgen", serde(rename_all = "camelCase"))]
 #[cfg_attr(feature = "wasm-bindgen", derive(Tsify))]
 #[cfg_attr(feature = "wasm-bindgen", tsify(into_wasm_abi))]
+#[frb(non_opaque)]
+#[frb(name = "SpokenInstruction")]
 pub struct SpokenInstruction {
     /// Plain-text instruction which can be synthesized with a TTS engine.
     pub text: String,
