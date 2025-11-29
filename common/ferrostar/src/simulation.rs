@@ -53,11 +53,7 @@ use wasm_bindgen::{JsValue, prelude::*};
 #[cfg(feature = "wasm-bindgen")]
 use tsify::Tsify;
 
-#[cfg(all(feature = "std", not(feature = "web-time")))]
-use std::time::SystemTime;
-
-#[cfg(feature = "web-time")]
-use web_time::SystemTime;
+use chrono::Utc;
 
 #[cfg(feature = "alloc")]
 use alloc::{
@@ -144,7 +140,7 @@ pub fn location_simulation_from_coordinates(
                 coordinates: jittered_current,
                 horizontal_accuracy: accuracy,
                 course_over_ground: Some(CourseOverGround::new(bearing, Some(5))),
-                timestamp: SystemTime::now(),
+                timestamp: Utc::now(),
                 speed: None,
             };
             let remaining_locations = if let Some(distance) = resample_distance {
@@ -298,7 +294,7 @@ pub fn advance_location_simulation(state: &LocationSimulationState) -> LocationS
             coordinates: jittered_next,
             horizontal_accuracy: accuracy,
             course_over_ground: Some(CourseOverGround::new(bearing, Some(5))),
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None,
         };
 

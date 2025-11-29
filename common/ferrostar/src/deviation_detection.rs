@@ -31,13 +31,8 @@ use {
         navigation_controller::test_helpers::{gen_dummy_route_step, gen_route_from_steps},
     },
     proptest::prelude::*,
+    chrono::Utc,
 };
-
-#[cfg(all(test, feature = "std", not(feature = "web-time")))]
-use std::time::SystemTime;
-
-#[cfg(all(test, feature = "web-time"))]
-use web_time::SystemTime;
 
 /// Determines if the user has deviated from the expected route.
 #[derive(Clone, Serialize, Deserialize)]
@@ -200,7 +195,7 @@ proptest! {
             },
             horizontal_accuracy: 0.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state = get_navigating_trip_state(
@@ -223,7 +218,7 @@ proptest! {
             },
             horizontal_accuracy: 0.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state_random = get_navigating_trip_state(
@@ -273,7 +268,7 @@ proptest! {
             },
             horizontal_accuracy: 0.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state_on_route = get_navigating_trip_state(
@@ -296,7 +291,7 @@ proptest! {
             },
             horizontal_accuracy: 0.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state_random = get_navigating_trip_state(
@@ -347,7 +342,7 @@ proptest! {
             },
             horizontal_accuracy: 0.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state_on_route = get_navigating_trip_state(
@@ -372,7 +367,7 @@ proptest! {
             },
             horizontal_accuracy: 0.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state_random = get_navigating_trip_state(
@@ -416,7 +411,7 @@ proptest! {
             },
             horizontal_accuracy,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state = get_navigating_trip_state(
@@ -441,7 +436,7 @@ proptest! {
             coordinates,
             horizontal_accuracy: 0.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state_random = get_navigating_trip_state(
@@ -491,7 +486,7 @@ proptest! {
             coordinates,
             horizontal_accuracy: horizontal_accuracy as f64,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None
         };
         let trip_state_random = get_navigating_trip_state(

@@ -6,10 +6,7 @@ use insta::_macro_support::Content;
 use insta::internals::ContentPath;
 use serde::Serialize;
 use serde::de::DeserializeOwned;
-#[cfg(all(feature = "std", not(feature = "web-time")))]
-use std::time::SystemTime;
-#[cfg(feature = "web-time")]
-use web_time::SystemTime;
+use chrono::Utc;
 
 pub fn make_user_location(coord: Coord, horizontal_accuracy: f64) -> UserLocation {
     UserLocation {
@@ -19,7 +16,7 @@ pub fn make_user_location(coord: Coord, horizontal_accuracy: f64) -> UserLocatio
         },
         horizontal_accuracy,
         course_over_ground: None,
-        timestamp: SystemTime::now(),
+        timestamp: Utc::now(),
         speed: None,
     }
 }

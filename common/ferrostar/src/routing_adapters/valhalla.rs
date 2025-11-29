@@ -240,10 +240,7 @@ pub struct ValhallaLocationSearchFilter {
 /// # Examples
 ///
 /// ```
-/// # #[cfg(all(feature = "std", not(feature = "web-time")))]
-/// # use std::time::SystemTime;
-/// # #[cfg(feature = "web-time")]
-/// # use web_time::SystemTime;
+/// # use chrono::Utc;
 /// use serde_json::{json, Map, Value};
 /// use ferrostar::models::{GeographicCoordinate, UserLocation, Waypoint, WaypointKind};
 /// use crate::ferrostar::routing_adapters::RouteRequestGenerator;
@@ -267,7 +264,7 @@ pub struct ValhallaLocationSearchFilter {
 ///     },
 ///     horizontal_accuracy: 0.0,
 ///     course_over_ground: None,
-///     timestamp: SystemTime::now(),
+///     timestamp: Utc::now(),
 ///     speed: None,
 /// };
 ///
@@ -567,11 +564,7 @@ mod tests {
     use assert_json_diff::assert_json_include;
     use serde_json::{from_slice, json};
     use std::sync::LazyLock;
-
-    #[cfg(all(feature = "std", not(feature = "web-time")))]
-    use std::time::SystemTime;
-    #[cfg(feature = "web-time")]
-    use web_time::SystemTime;
+    use chrono::{DateTime, Utc};
 
     const ENDPOINT_URL: &str = "https://api.stadiamaps.com/route/v1";
     const COSTING: &str = "bicycle";
@@ -579,7 +572,7 @@ mod tests {
         coordinates: GeographicCoordinate { lat: 0.0, lng: 0.0 },
         horizontal_accuracy: 6.0,
         course_over_ground: None,
-        timestamp: SystemTime::UNIX_EPOCH,
+        timestamp: DateTime::<Utc>::UNIX_EPOCH,
         speed: None,
     };
     const USER_LOCATION_WITH_COURSE: UserLocation = UserLocation {
@@ -589,7 +582,7 @@ mod tests {
             degrees: 42,
             accuracy: Some(12),
         }),
-        timestamp: SystemTime::UNIX_EPOCH,
+        timestamp: DateTime::<Utc>::UNIX_EPOCH,
         speed: None,
     };
     static WAYPOINTS: LazyLock<[Waypoint; 2]> = LazyLock::new(|| {
@@ -783,7 +776,7 @@ mod tests {
             coordinates: GeographicCoordinate { lat: 0.0, lng: 0.0 },
             horizontal_accuracy: -6.0,
             course_over_ground: None,
-            timestamp: SystemTime::now(),
+            timestamp: Utc::now(),
             speed: None,
         };
 
